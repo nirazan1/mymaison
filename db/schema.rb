@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190822055755) do
+ActiveRecord::Schema.define(version: 20190823040559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,12 +32,12 @@ ActiveRecord::Schema.define(version: 20190822055755) do
     t.string   "nationality"
     t.string   "passport_number"
     t.boolean  "group_leader"
-    t.integer  "user_id"
+    t.integer  "reservation_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "guests", ["user_id"], name: "index_guests_on_user_id", using: :btree
+  add_index "guests", ["reservation_id"], name: "index_guests_on_reservation_id", using: :btree
 
   create_table "properties", force: true do |t|
     t.string   "name"
@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(version: 20190822055755) do
   end
 
   add_index "properties", ["user_id"], name: "index_properties_on_user_id", using: :btree
+
+  create_table "reservations", force: true do |t|
+    t.date     "checkin_date"
+    t.date     "checkout_date"
+    t.integer  "property_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reservations", ["property_id"], name: "index_reservations_on_property_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"

@@ -9,7 +9,7 @@ class CreateGuests < ActiveRecord::Migration
       t.string :nationality
       t.string :passport_number
       t.boolean :group_leader
-      t.references :user, index: true
+      t.references :reservation, index: true
 
       t.timestamps
     end
