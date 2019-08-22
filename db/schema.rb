@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190822055016) do
+ActiveRecord::Schema.define(version: 20190822055755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,22 @@ ActiveRecord::Schema.define(version: 20190822055016) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "guests", force: true do |t|
+    t.string   "name"
+    t.string   "surname"
+    t.string   "gender"
+    t.date     "date_of_birth"
+    t.string   "country_of_birth"
+    t.string   "nationality"
+    t.string   "passport_number"
+    t.boolean  "group_leader"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "guests", ["user_id"], name: "index_guests_on_user_id", using: :btree
 
   create_table "properties", force: true do |t|
     t.string   "name"
