@@ -35,6 +35,7 @@ end
 group :development do
   gem 'pry' #debugger
 end
+gem 'mechanize'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

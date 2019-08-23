@@ -6,7 +6,7 @@
     </p>
     <p>
       <%= f.label "Check In Date: " %>
-      <%= f.date_field :checkin_date, required: true %>
+      <%= f.date_field :checkin_date, required: true, min: Date.yesterday, max: Date.today %>
     </p>
     <p>
       <%= f.label "Check Out Date: " %>
@@ -32,18 +32,19 @@
         </p>
         <p>
           <%= guest.label "country_of_birth: " %>
-          <%= guest.text_field :country_of_birth, required: true %>
+          <%= guest.select :country_of_birth,  ["Italy"], required: true %>
         </p>
         <p>
           <%= guest.label "nationality: " %>
-          <%= guest.text_field :nationality, required: true %>
+          <%= guest.select :nationality,  ["Italy"], required: true %>
         </p>
         <p>
           <%= guest.label "passport_number: " %>
           <%= guest.text_field :passport_number, required: true %>
         </p>
         <p>
-          <%= guest.check_box :group_leader, {checked: true, hidden: true} %>
+          <%= guest.label "group_leader: " %>
+          <%= guest.check_box :group_leader %>
         </p>
       <% end %>
   <p>
