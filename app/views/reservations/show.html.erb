@@ -1,0 +1,63 @@
+<p>
+  <%= label_tag :property %>:
+  <%= @reservation.property.name %>
+</p>
+<p>
+  <%= label_tag :checkin_date %>:
+  <%= @reservation.checkin_date %>
+</p>
+
+<p>
+  <%= label_tag :checkout_date %>:
+  <%= @reservation.checkout_date %>
+</p>
+<hr>
+
+<p>Guests Info: </p>
+<div class="guest_infos_container">
+  <% @reservation.guests.reverse.each do |guest| %>
+    <div>
+      <p>
+        <%= label_tag "name" %>:
+        <%= guest.name %>
+      </p>
+      <p>
+        <%= label_tag "surname" %>:
+        <%= guest.surname %>
+      </p>
+      <p>
+        <%= label_tag "gender" %>:
+        <%= guest.gender %>
+      </p>
+      <p>
+        <%= label_tag "date_of_birth" %>:
+        <%= guest.date_of_birth %>
+      </p>
+      <p>
+        <%= label_tag "country_of_birth" %>:
+        <%= guest.country_of_birth %>
+      </p>
+      <p>
+        <%= label_tag "nationality" %>:
+        <%= guest.nationality %>
+      </p>
+      <p>
+        <%= label_tag "passport_number" %>:
+        <%= guest.passport_number %>
+      </p>
+      <p>
+        <%= label_tag "group_leader" %>:
+        <%= guest.group_leader %>
+      </p>
+      <hr>
+    </div>
+
+
+  <% end %>
+<hr>
+</div>
+<h3>Add More Guest to Reservation </h3>
+<%= render 'add_guest_form' %>
+
+
+<%= link_to 'Back', root_path %>

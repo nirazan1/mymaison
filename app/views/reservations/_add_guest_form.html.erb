@@ -1,0 +1,40 @@
+<%= form_for([@reservation, @reservation.guests.build],remote: true, :html => {:required => true}) do |f| %>
+  <p>
+    <%= f.hidden_field :reservation_id %>
+    <p>
+      <%= f.label "name: " %>
+      <%= f.text_field :name, required: true %>
+    </p>
+    <p>
+      <%= f.label "surname: " %>
+      <%= f.text_field :surname, required: true %>
+    </p>
+    <p>
+      <%= f.label "gender: " %>
+      <%= f.select :gender,  ["Male", "Female"], required: true %>
+    </p>
+    <p>
+      <%= f.label "date_of_birth: " %>
+      <%= f.date_field :date_of_birth, required: true %>
+    </p>
+    <p>
+      <%= f.label "country_of_birth: " %>
+      <%= f.text_field :country_of_birth, required: true %>
+    </p>
+    <p>
+      <%= f.label "nationality: " %>
+      <%= f.text_field :nationality, required: true %>
+    </p>
+    <p>
+      <%= f.label "passport_number: " %>
+      <%= f.text_field :passport_number %>
+    </p>
+    <p>
+      <%= f.check_box :group_leader, {checked: false, hidden: true} %>
+    </p>
+
+    <%= f.submit "Add Guest"%>
+  </p>
+<% end %>
+
+

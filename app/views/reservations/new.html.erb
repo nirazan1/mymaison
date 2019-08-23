@@ -1,0 +1,55 @@
+
+<%= form_for @reservation, url: reservations_path do |f| %>
+    <p>
+      <%= f.label "Property: " %>
+      <%= f.select :property_id, @properties.collect { |p| [ p.name, p.id ] }, include_blank: false %>
+    </p>
+    <p>
+      <%= f.label "Check In Date: " %>
+      <%= f.date_field :checkin_date, required: true %>
+    </p>
+    <p>
+      <%= f.label "Check Out Date: " %>
+      <%= f.date_field :checkout_date, required: true %>
+    </p>
+    <p> Main Guest (Group Leader) Info: </p>
+      <%= f.fields_for :guest do |guest| %>
+        <p>
+          <%= guest.label "name: " %>
+          <%= guest.text_field :name, required: true %>
+        </p>
+        <p>
+          <%= guest.label "surname: " %>
+          <%= guest.text_field :surname, required: true %>
+        </p>
+        <p>
+          <%= guest.label "gender: " %>
+          <%= guest.select :gender,  ["Male", "Female"], required: true %>
+        </p>
+        <p>
+          <%= guest.label "date_of_birth: " %>
+          <%= guest.date_field :date_of_birth, required: true %>
+        </p>
+        <p>
+          <%= guest.label "country_of_birth: " %>
+          <%= guest.text_field :country_of_birth, required: true %>
+        </p>
+        <p>
+          <%= guest.label "nationality: " %>
+          <%= guest.text_field :nationality, required: true %>
+        </p>
+        <p>
+          <%= guest.label "passport_number: " %>
+          <%= guest.text_field :passport_number, required: true %>
+        </p>
+        <p>
+          <%= guest.check_box :group_leader, {checked: true, hidden: true} %>
+        </p>
+      <% end %>
+  <p>
+    <%= f.submit %>
+  </p>
+
+<% end %>
+
+<%= link_to 'Back', root_path %>

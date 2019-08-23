@@ -16,22 +16,16 @@ ActiveRecord::Schema.define(version: 20190823040559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "ar_internal_metadata", id: false, force: true do |t|
-    t.string   "key",        null: false
-    t.string   "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "guests", force: true do |t|
-    t.string   "name"
-    t.string   "surname"
-    t.string   "gender"
-    t.date     "date_of_birth"
-    t.string   "country_of_birth"
-    t.string   "nationality"
-    t.string   "passport_number"
-    t.boolean  "group_leader"
+    t.string   "name",                                    null: false
+    t.string   "surname",                                 null: false
+    t.string   "gender",                                  null: false
+    t.date     "date_of_birth",                           null: false
+    t.string   "country_of_birth",                        null: false
+    t.string   "nationality",                             null: false
+    t.string   "passport_number",                         null: false
+    t.boolean  "group_leader",            default: false
+    t.boolean  "synced_to_police_portal", default: false
     t.integer  "reservation_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -40,8 +34,8 @@ ActiveRecord::Schema.define(version: 20190823040559) do
   add_index "guests", ["reservation_id"], name: "index_guests_on_reservation_id", using: :btree
 
   create_table "properties", force: true do |t|
-    t.string   "name"
-    t.string   "location"
+    t.string   "name",       null: false
+    t.string   "location",   null: false
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -50,8 +44,8 @@ ActiveRecord::Schema.define(version: 20190823040559) do
   add_index "properties", ["user_id"], name: "index_properties_on_user_id", using: :btree
 
   create_table "reservations", force: true do |t|
-    t.date     "checkin_date"
-    t.date     "checkout_date"
+    t.date     "checkin_date",  null: false
+    t.date     "checkout_date", null: false
     t.integer  "property_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -60,9 +54,11 @@ ActiveRecord::Schema.define(version: 20190823040559) do
   add_index "reservations", ["property_id"], name: "index_reservations_on_property_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",                   null: false
+    t.string   "police_portal_username"
+    t.string   "police_portal_password"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
