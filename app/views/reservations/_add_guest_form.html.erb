@@ -2,6 +2,14 @@
   <p>
     <%= f.hidden_field :reservation_id %>
     <p>
+      <%= f.label "Check In Date: " %>
+      <%= f.date_field :checkin_date, required: true, min: Date.yesterday, max: Date.today %>
+    </p>
+    <p>
+      <%= f.label "Check Out Date: " %>
+      <%= f.date_field :checkout_date, required: true %>
+    </p>
+    <p>
       <%= f.label "name: " %>
       <%= f.text_field :name, required: true %>
     </p>

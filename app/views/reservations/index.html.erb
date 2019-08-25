@@ -3,8 +3,6 @@
   <thead class="thead-light">
     <tr>
       <th>Property</th>
-      <th>Check In</th>
-      <th>Check Out</th>
       <th>Guest</th>
     </tr>
   </thead>
@@ -12,8 +10,6 @@
     <% @reservations.each do |reservation| %>
       <tr>
         <td><%= reservation.property.name  %></td>
-        <td><%= reservation.checkin_date %></td>
-        <td><%= reservation.checkout_date %></td>
         <td><%= reservation.guests.leader.last.full_name + " and Others"  %></td>
         <td><%= link_to 'Show', reservation_path(reservation) %></td>
       </tr>

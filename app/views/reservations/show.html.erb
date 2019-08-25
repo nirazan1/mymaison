@@ -2,21 +2,21 @@
   <%= label_tag :property %>:
   <%= @reservation.property.name %>
 </p>
-<p>
-  <%= label_tag :checkin_date %>:
-  <%= @reservation.checkin_date %>
-</p>
-
-<p>
-  <%= label_tag :checkout_date %>:
-  <%= @reservation.checkout_date %>
-</p>
 <hr>
 
 <p>Guests Info: </p>
 <div class="guest_infos_container">
   <% @reservation.guests.reverse.each do |guest| %>
     <div>
+      <p>
+        <%= label_tag :checkin_date %>:
+        <%= guest.checkin_date %>
+      </p>
+
+      <p>
+        <%= label_tag :checkout_date %>:
+        <%= guest.checkout_date %>
+      </p>
       <p>
         <%= label_tag "name" %>:
         <%= guest.name %>

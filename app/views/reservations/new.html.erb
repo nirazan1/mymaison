@@ -4,16 +4,16 @@
       <%= f.label "Property: " %>
       <%= f.select :property_id, @properties.collect { |p| [ p.name, p.id ] }, include_blank: false %>
     </p>
-    <p>
-      <%= f.label "Check In Date: " %>
-      <%= f.date_field :checkin_date, required: true, min: Date.yesterday, max: Date.today %>
-    </p>
-    <p>
-      <%= f.label "Check Out Date: " %>
-      <%= f.date_field :checkout_date, required: true %>
-    </p>
     <p> Main Guest (Group Leader) Info: </p>
       <%= f.fields_for :guest do |guest| %>
+        <p>
+          <%= guest.label "Check In Date: " %>
+          <%= guest.date_field :checkin_date, required: true, min: Date.yesterday, max: Date.today %>
+        </p>
+        <p>
+          <%= guest.label "Check Out Date: " %>
+          <%= guest.date_field :checkout_date, required: true %>
+        </p>
         <p>
           <%= guest.label "name: " %>
           <%= guest.text_field :name, required: true %>
@@ -41,6 +41,10 @@
         <p>
           <%= guest.label "passport_number: " %>
           <%= guest.text_field :passport_number, required: true %>
+        </p>
+        <p>
+          <%= guest.label "email_address: " %>
+          <%= guest.email_field :email_address, required: true %>
         </p>
         <p>
           <%= guest.label "group_leader: " %>

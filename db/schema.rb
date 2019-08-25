@@ -17,13 +17,16 @@ ActiveRecord::Schema.define(version: 20190823040559) do
   enable_extension "plpgsql"
 
   create_table "guests", force: true do |t|
+    t.date     "checkin_date",                            null: false
+    t.date     "checkout_date",                           null: false
     t.string   "name",                                    null: false
+    t.string   "email_address"
     t.string   "surname",                                 null: false
     t.string   "gender",                                  null: false
     t.date     "date_of_birth",                           null: false
     t.string   "country_of_birth",                        null: false
     t.string   "nationality",                             null: false
-    t.string   "passport_number",                         null: false
+    t.string   "passport_number"
     t.boolean  "group_leader",            default: false
     t.boolean  "synced_to_police_portal", default: false
     t.integer  "reservation_id"
@@ -44,8 +47,9 @@ ActiveRecord::Schema.define(version: 20190823040559) do
   add_index "properties", ["user_id"], name: "index_properties_on_user_id", using: :btree
 
   create_table "reservations", force: true do |t|
-    t.date     "checkin_date",  null: false
-    t.date     "checkout_date", null: false
+    t.string   "signing_url"
+    t.string   "signature_request_id"
+    t.boolean  "contract_signed"
     t.integer  "property_id"
     t.datetime "created_at"
     t.datetime "updated_at"

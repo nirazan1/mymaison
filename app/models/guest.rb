@@ -1,6 +1,6 @@
 class Guest < ActiveRecord::Base
   validates :name, :surname, :gender, :date_of_birth ,:country_of_birth,
-   :nationality, presence: true
+   :nationality, :checkin_date, :checkout_date, presence: true
   validates :passport_number, presence: true, if: -> { group_leader? }
   belongs_to :reservation
   scope :leader, -> { where(group_leader: true) }
