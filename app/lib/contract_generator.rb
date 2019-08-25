@@ -8,9 +8,22 @@ class ContractGenerator
     generate_contract_and_return_url
   end
 
+  def download_and_email_contract(email_address)
+    file_bin = client.signature_request_files :signature_request_id => @reservation.signature_request_id, :file_type => 'pdf'
+    file_path = "#{Rails.root}/tmp/reservation_#{@reservation.id}.pdf"
+
+    File.open(file_path, 'wb') do |file|
+      file.write(file_bin)
+    end
+    Notifier.send_contract(email_address, file_path).deliver!
+  end
+
   private
+  def client
+    @client ||= HelloSign::Client.new
+  end
+
   def generate_contract_and_return_url
-    client = HelloSign::Client.new
     # response = client.send_signature_request_with_template(request_params)
     # @signing_url = response.raw_data['signing_url']
     response = client.create_embedded_signature_request_with_template(

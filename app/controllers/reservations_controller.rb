@@ -33,6 +33,16 @@ class ReservationsController < ApplicationController
 
   def signed
     @reservation = Reservation.find(params[:reservation_id])
+    @reservation.update(contract_signed: true)
+    guest = @reservation.guests.leader&.first || @reservation.guests.first
+    @email_address = guest.email_address
+  end
+
+  def email_contract
+    @reservation = Reservation.find(params[:reservation_id])
+    contract_generator = ContractGenerator.new(@reservation)
+    contract_generator.download_and_email_contract(params[:email_address])
+    redirect_to root_path
   end
 
   private

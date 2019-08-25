@@ -1,2 +1,7 @@
 <p>Thank you for completing the signing</p>
-<p>Email?</p>
+<p>Email contract?</p>
+
+<%= form_tag reservation_email_contract_path(@reservation) do%>
+  Email : </br><%= text_field_tag 'email_address', @email_address, :size=>"30"%></br>
+  <%= submit_tag "submit",:value => "submit"%>
+<%end%>
