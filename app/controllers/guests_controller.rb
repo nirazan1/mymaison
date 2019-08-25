@@ -5,8 +5,6 @@ class GuestsController < ApplicationController
 
     respond_to do |format|
       if @guest.save
-        police_portal_syncer = PolicePortalSyncer.new(@reservation)
-        police_portal_syncer.sync_guests
         format.html { redirect_to @reservation, notice: 'Guest was successfully posted' }
         format.js
       end

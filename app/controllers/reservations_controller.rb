@@ -23,6 +23,18 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.find(params[:id])
   end
 
+  def submit
+    @reservation = Reservation.find(params[:reservation_id])
+    police_portal_syncer = PolicePortalSyncer.new(@reservation)
+    police_portal_syncer.sync_guests
+    contract_generator = ContractGenerator.new(@reservation)
+    @signing_url = contract_generator.contract_url
+  end
+
+  def signed
+    @reservation = Reservation.find(params[:reservation_id])
+  end
+
   private
   def reservation_params
     params.require(:reservation).permit(:checkin_date, :checkout_date,

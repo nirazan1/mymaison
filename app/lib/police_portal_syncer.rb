@@ -75,7 +75,7 @@ class PolicePortalSyncer
       form = page.form
       puts "filling reservation data for group leader #{guest.name}"
       form['ctl00$Corpo$txtTipoAlloid'] =  Guest::GUEST_TYPE['Group Leader']
-      fill_form_data(form)
+      fill_form_data(form, guest)
       puts "submitting reservation data for group leader #{guest.name}"
       mechanize_client.submit(form, form.buttons.first)
       # form = mechanize_client.page.form
@@ -90,6 +90,7 @@ class PolicePortalSyncer
       puts "syncing guest #{guest.name}"
       form = mechanize_client.page.form
       puts "filling reservation data for guest #{guest.name}"
+      form['ctl00$Corpo$txtPerm'] = (guest.checkout_date - guest.checkin_date).to_i
       form['ctl00$Corpo$txtSexAlloid'] = GENDER[guest.gender]
       form['ctl00$Corpo$txtCog'] = guest.surname
       form['ctl00$Corpo$txtNom'] = guest.name
@@ -119,7 +120,7 @@ class PolicePortalSyncer
       form = page.form
       puts "filling reservation data for single guest #{guest.name}"
       form['ctl00$Corpo$txtTipoAlloid'] =  Guest::GUEST_TYPE['Single Guest']
-      fill_form_data(form)
+      fill_form_data(form, guest)
       puts "submitting reservation data for group leader #{guest.name}"
       mechanize_client.submit(form, form.buttons.first)
       # form = mechanize_client.page.form
@@ -129,9 +130,9 @@ class PolicePortalSyncer
     fill_other_guest_data(mechanize_client)
   end
 
-  def fill_form_data(form)
-    form['ctl00$Corpo$txtDatArrivoid'] = reservation.checkin_date.strftime("%d/%m/%Y")
-    form['ctl00$Corpo$txtPerm'] = (reservation.checkout_date - reservation.checkin_date).to_i
+  def fill_form_data(form, guest)
+    form['ctl00$Corpo$txtDatArrivoid'] = guest.checkin_date.strftime("%d/%m/%Y")
+    form['ctl00$Corpo$txtPerm'] = (guest.checkout_date - guest.checkin_date).to_i
     form['ctl00$Corpo$txt_Sexid'] = GENDER[guest.gender]
     form['ctl00$Corpo$txtCog'] = guest.surname
     form['ctl00$Corpo$txtNom'] = guest.name

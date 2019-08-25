@@ -1,0 +1,20 @@
+<script type="text/javascript">
+  var signing_url = <%= raw @signing_url.to_json %>;
+  var redirect_url = "<%= reservation_signed_path(@reservation) %>";
+  HelloSign.init("248a18bc8fe2f1d2e3f91a7319e89251");
+  HelloSign.open({
+    url: signing_url.data.sign_url,
+    skipDomainVerification: true,
+    allowCancel: true,
+    messageListener: function(eventData) {
+      if (eventData.event == HelloSign.EVENT_SIGNED) {
+        window.location.replace(redirect_url);
+      }
+    }
+  });
+  // window.open('<%= @signing_url %>', '_blank');
+</script>
+
+<div>
+  <p>Please Sign the document </p>
+</div>
