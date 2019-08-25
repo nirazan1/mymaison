@@ -10,7 +10,7 @@
     <% @reservations.each do |reservation| %>
       <tr>
         <td><%= reservation.property.name  %></td>
-        <td><%= reservation.guests.leader.last.full_name + " and Others"  %></td>
+        <td><%= reservation.guests.leader.last&.full_name || reservation.guests.first&.full_name %></td>
         <td><%= link_to 'Show', reservation_path(reservation) %></td>
       </tr>
     <% end %>
@@ -18,4 +18,4 @@
 </table>
 
 
-<%= link_to 'Add New Guest Reservations', new_reservation_path %>
+<h3><%= link_to 'Add New Guest Reservations', new_reservation_path %></h3>

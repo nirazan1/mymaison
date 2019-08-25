@@ -5,9 +5,10 @@ Mymaison::Application.routes.draw do
   resources :reservations do
     resources :guests
   end
-  get 'reservations/submit/:reservation_id' => 'reservations#submit', as: 'reservation_submit'
+  post 'reservations/submit/:reservation_id' => 'reservations#submit', as: 'reservation_submit'
   get 'reservations/signed/:reservation_id' => 'reservations#signed', as: 'reservation_signed'
   post 'reservations/email_contract/:reservation_id' => 'reservations#email_contract', as: 'reservation_email_contract'
+  post 'reservations/download_contract/:reservation_id' => 'reservations#download_contract', as: 'reservation_download_contract'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

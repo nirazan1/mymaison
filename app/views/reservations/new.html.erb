@@ -1,10 +1,23 @@
 
 <%= form_for @reservation, url: reservations_path do |f| %>
+  <% if @reservation.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@reservation.errors.count, "error") %> prohibited
+        this reservation from being saved:
+      </h2>
+      <ul>
+        <% @reservation.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
     <p>
       <%= f.label "Property: " %>
       <%= f.select :property_id, @properties.collect { |p| [ p.name, p.id ] }, include_blank: false %>
     </p>
-    <p> Main Guest (Group Leader) Info: </p>
+    <p> Main Guest Info: </p>
       <%= f.fields_for :guest do |guest| %>
         <p>
           <%= guest.label "Check In Date: " %>
@@ -47,7 +60,7 @@
           <%= guest.email_field :email_address, required: true %>
         </p>
         <p>
-          <%= guest.label "group_leader: " %>
+          <b><%= guest.label "group_leader: " %></b>
           <%= guest.check_box :group_leader %>
         </p>
       <% end %>
@@ -57,4 +70,4 @@
 
 <% end %>
 
-<%= link_to 'Back', root_path %>
+<h3><%= link_to 'Home', root_path %></h3>

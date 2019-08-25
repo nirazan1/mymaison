@@ -15,6 +15,7 @@ class GuestsController < ApplicationController
 
   def guest_params
     params.require(:guest).permit(:name, :surname, :gender, :date_of_birth,
-     :country_of_birth, :nationality, :passport_number, :group_leader)
+     :country_of_birth, :nationality, :passport_number, :group_leader,
+     :reservation_id, :checkin_date, :checkout_date)
   end
 end

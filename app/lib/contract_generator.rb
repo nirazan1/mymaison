@@ -9,13 +9,19 @@ class ContractGenerator
   end
 
   def download_and_email_contract(email_address)
+    file_path = download_contract
+    Notifier.send_contract(email_address, file_path).deliver
+  end
+
+  def download_contract
+    sleep(10.seconds) # temporary fix for delaying, TODO: use delayed job
     file_bin = client.signature_request_files :signature_request_id => @reservation.signature_request_id, :file_type => 'pdf'
     file_path = "#{Rails.root}/tmp/reservation_#{@reservation.id}.pdf"
 
     File.open(file_path, 'wb') do |file|
       file.write(file_bin)
     end
-    Notifier.send_contract(email_address, file_path).deliver!
+    file_path
   end
 
   private

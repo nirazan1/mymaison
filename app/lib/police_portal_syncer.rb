@@ -20,6 +20,7 @@ class PolicePortalSyncer
   end
 
   def sync_guests
+    return if reservation.guests.pending_sync.blank?
     download_certificate if !File.exist?(pfx_file)
     pkcs = OpenSSL::PKCS12.new(File.read(pfx_file), user.police_portal_password)
     download_certificate if pfx_file_certificate.not_after < Time.current

@@ -2,6 +2,12 @@
 <p>Email contract?</p>
 
 <%= form_tag reservation_email_contract_path(@reservation) do%>
-  Email : </br><%= text_field_tag 'email_address', @email_address, :size=>"30"%></br>
+  Email : <%= text_field_tag 'email_address', @email_address, :size=>"30"%>
   <%= submit_tag "submit",:value => "submit"%>
 <%end%>
+
+<p>
+  <%= button_to 'Download Contract', reservation_download_contract_path(@reservation) %>
+</p>
+
+<h3><%= link_to 'Home', root_path %></h3>

@@ -3,11 +3,11 @@
     <%= f.hidden_field :reservation_id %>
     <p>
       <%= f.label "Check In Date: " %>
-      <%= f.date_field :checkin_date, required: true, min: Date.yesterday, max: Date.today %>
+      <%= f.date_field :checkin_date, value: @default_checkin_date, required: true, min: Date.yesterday, max: Date.today %>
     </p>
     <p>
       <%= f.label "Check Out Date: " %>
-      <%= f.date_field :checkout_date, required: true %>
+      <%= f.date_field :checkout_date, value: @default_checkout_date,required: true %>
     </p>
     <p>
       <%= f.label "name: " %>
@@ -37,7 +37,7 @@
       <%= f.check_box :group_leader, {checked: false, hidden: true} %>
     </p>
 
-    <%= f.submit "Add Guest"%>
+    <%= f.submit "Add Guest + "%>
   </p>
 <% end %>
 

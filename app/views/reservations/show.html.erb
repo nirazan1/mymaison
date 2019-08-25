@@ -51,23 +51,26 @@
       </p>
       <hr>
     </div>
-
-
   <% end %>
-  <% if !@reservation.contract_signed? %>
-    <%= link_to 'Done (Sync to Police Portal & Generate Contract)', reservation_submit_path(@reservation) %>
-  <% else %>
-    <p>View Contract</p>
-  <% end %>
-
-<hr>
 </div>
-<% if @reservation.guests.leader.present? && @reservation.guests.pluck(:synced_to_police_portal).none? %>
-  <h3>Add More Guest to Reservation </h3>
+<% if @reservation.guests.pluck(:synced_to_police_portal).any? %>
+  <h4>Already Synced to Police Portal ! </h4>
+<% elsif @reservation.guests.leader.pending_sync.any? %>
+  <h5>Add More Guest to Reservation </h5>
   <%= render 'add_guest_form' %>
+<% end %>
+<hr>
+<% if !@reservation.contract_signed? %>
+  <h4>Police Portal and Contract Info.</h4>
+  <p>
+    <%= button_to 'Submit and Sync', reservation_submit_path(@reservation) %>
+    Click 'Submit and Sync' to Sync to Police Portal and/or Generate Contract.
+  </p>
 <% else %>
-  <p>Synced to Police Portal</p>
+  <b>
+    Already Signed Contract
+    <%= button_to 'Download Contract', reservation_download_contract_path(@reservation) %>
+  </b>
 <% end %>
 
-
-<%= link_to 'Back', root_path %>
+<h3><%= link_to 'Home', root_path %></h3>
