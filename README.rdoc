@@ -1,28 +1,44 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Ruby version: 2.3.3, Rails 4.0.2
 
-Things you may want to cover:
+* Database postgresql
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Requirement:
+    A global user needs to add reservation information about his house/room/flat
+    For each guest he must register: Name, Surname, Gender, DOB, Country of Birth, Nationality
+    There could be following types of Guest, Group Leader, guest beloning to Group Leader and a Single Guest.
+    For the Group Leader and Single Guest - User must also register the Passport number and Email Address (for emailing contract document)
+    The User must also register CheckIn and CheckOut info for each guest.
+    The application should then send all the Guest data to the Italian Police Portal.
+    For each reservation, the user must show the contract to the main guest and collect his signature.
+    Then the application should generate a PDF of the contract (for sending it via email to the main guest and for the user to download if he likes
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* Solution:
+    Create DB Table/Rails Model for User, Property, Reservation, Guest.
+    User: stores global user information like name, police portal username and password.
+    Property: stores property that belongs to user with information like Property name and its location.
+    Reservation: stores reservation information links (adds relationship) with user, property, contract information and guest
+    Guest: stores guest information like name, surname, gender etc and links (adds relationship) with reservation.
+    Add valiations for Name, Surname, Gender, DOB, Country of Birth, Nationality, Passport Number, Email, CheckIn and CheckOut on Database validation (no null field)/Model Validations/Frontend Validation.
+    Create a UI to make reservation allowing User to register Group Leader, guest beloning to Group Leader or a Single Guest.
+    Download the Italian Police Portal certificate if there is no existing certificate and the existing certificate has expired.
+    Use the certificate from above to login and fill guest information on Italian Police Portal.
+    Generate Digitally signable contract, display the contract for The Guest to sign it and also allow the contract to be emailed to The Guest.
+    Also allow user to download the contract.
+
+* Gems Used:
+    mechanize: used for automating interaction with websites. Mechanize automatically stores and sends cookies, follows redirects, and can follow links and submit forms. Form fields can be populated and submitted. Mechanize also keeps track of the sites that you have visited as a history.
+
+    hellosign-ruby-sdk: used for creating contract which can be digitally signed.
+
+* Setup instructions
+ clone repo
+ setup database credentials
+ run migration, rake db:setup
+ run seed file, to create a global User and other data i.e. rake db:seed
+ IMPORTANT !!!! manually add Police Portal Username and Password to user record.
+  user = User.first
+  user.update(police_portal_password: '<username>', police_portal_username: '<password>')
+ start rails server.
